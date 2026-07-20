@@ -66,10 +66,40 @@ select {
 }
 
 .calculator-display {
+  display: grid;
+  min-width: 0;
   min-height: clamp(84px, 22vw, 112px);
+  align-content: end;
+  gap: 8px;
   border: 1px solid #cfd6de;
   border-radius: 6px;
   background: #f8fafc;
+  padding: clamp(12px, 4vw, 18px);
+  text-align: right;
+}
+
+.display-result,
+.display-entry {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-result {
+  color: #52606d;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  line-height: 1.2;
+}
+
+.display-entry {
+  color: #1f2933;
+  font-size: clamp(2rem, 10vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1;
 }
 
 .calculator-keypad {
