@@ -1,7 +1,5 @@
 import { Button } from "./Button";
-import type { NumberKey, OperatorKey } from "../lib/calculator";
-
-export type ActionKey = "clear" | "equals";
+import type { ActionKey, NumberKey, OperatorKey } from "../lib/calculator";
 
 type KeypadProps = {
   onActionPress: (key: ActionKey) => void;
