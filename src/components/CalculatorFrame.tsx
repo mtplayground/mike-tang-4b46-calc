@@ -7,6 +7,7 @@ import {
   getDisplayValues,
   initialCalculatorState,
   pressEquals,
+  resetCalculator,
   type NumberKey,
   type OperatorKey,
 } from "../lib/calculator";
@@ -24,6 +25,11 @@ export function CalculatorFrame() {
   }
 
   function handleActionPress(key: ActionKey) {
+    if (key === "clear") {
+      setCalculatorState(resetCalculator());
+      return;
+    }
+
     if (key === "equals") {
       setCalculatorState((state) => pressEquals(state));
     }
