@@ -155,6 +155,10 @@ export function pressEquals(state: CalculatorState): CalculatorState {
   };
 }
 
+export function resetCalculator(): CalculatorState {
+  return { ...initialCalculatorState };
+}
+
 export function getDisplayValues(state: CalculatorState) {
   const runningResult =
     state.previousValue && state.pendingOperator
