@@ -11,6 +11,7 @@ function normalizeDisplayValue(value: string | null | undefined) {
 export function Display({ currentEntry, runningResult }: DisplayProps) {
   const entry = normalizeDisplayValue(currentEntry);
   const result = normalizeDisplayValue(runningResult);
+  const entryClassName = /[a-z]/i.test(entry) ? "display-entry is-message" : "display-entry";
 
   return (
     <div
@@ -21,7 +22,7 @@ export function Display({ currentEntry, runningResult }: DisplayProps) {
       <output className="display-result" title={result}>
         {result}
       </output>
-      <output className="display-entry" title={entry}>
+      <output className={entryClassName} title={entry}>
         {entry}
       </output>
     </div>
