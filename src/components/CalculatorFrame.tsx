@@ -1,33 +1,37 @@
 import { useState } from "react";
 import { Display } from "./Display";
-import { Keypad, type NumberKey } from "./Keypad";
-
-function appendNumberKey(entry: string, key: NumberKey) {
-  if (key === ".") {
-    if (entry.includes(".")) {
-      return entry;
-    }
-
-    return entry.length > 0 ? `${entry}.` : "0.";
-  }
-
-  return entry === "0" ? key : `${entry}${key}`;
-}
+import { Keypad } from "./Keypad";
+import {
+  appendNumberKey,
+  chooseOperator,
+  getDisplayValues,
+  initialCalculatorState,
+  type NumberKey,
+  type OperatorKey,
+} from "../lib/calculator";
 
 export function CalculatorFrame() {
-  const [currentEntry, setCurrentEntry] = useState("");
+  const [calculatorState, setCalculatorState] = useState(initialCalculatorState);
+  const displayValues = getDisplayValues(calculatorState);
 
   function handleNumberPress(key: NumberKey) {
-    setCurrentEntry((entry) => appendNumberKey(entry, key));
+    setCalculatorState((state) => appendNumberKey(state, key));
+  }
+
+  function handleOperatorPress(key: OperatorKey) {
+    setCalculatorState((state) => chooseOperator(state, key));
   }
 
   return (
     <section className="calculator-frame" aria-label="Calculator">
-      <Display currentEntry={currentEntry} />
+      <Display
+        currentEntry={displayValues.currentEntry}
+        runningResult={displayValues.runningResult}
+      />
       <Keypad
         onActionPress={() => undefined}
         onNumberPress={handleNumberPress}
-        onOperatorPress={() => undefined}
+        onOperatorPress={handleOperatorPress}
       />
     </section>
   );
