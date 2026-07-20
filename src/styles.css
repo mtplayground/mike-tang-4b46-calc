@@ -3,14 +3,18 @@
   --color-surface: #ffffff;
   --color-panel: #f8f9fa;
   --color-key: #f7f8f9;
+  --color-key-pressed: #edf0f2;
   --color-key-action: #eceff2;
+  --color-key-action-pressed: #e0e5e9;
   --color-border: #d8dde3;
   --color-border-strong: #c8d0d8;
   --color-text: #20262d;
   --color-muted: #68717b;
   --color-accent: #2f6f8f;
   --color-accent-soft: #e8f2f6;
+  --color-accent-pressed: #dcecf2;
   --color-accent-border: #b9d2de;
+  --color-accent-border-pressed: #9fc4d4;
   color: var(--color-text);
   background: var(--color-page);
   font-family:
@@ -135,11 +139,27 @@ select {
   font-weight: 500;
   line-height: 1;
   padding: 0;
+  touch-action: manipulation;
+  transition:
+    background-color 80ms ease,
+    border-color 80ms ease,
+    transform 80ms ease;
+  user-select: none;
+}
+
+.calculator-button:active {
+  transform: translateY(1px);
+  border-color: var(--color-border-strong);
+  background: var(--color-key-pressed);
 }
 
 .calculator-button-action {
   background: var(--color-key-action);
   border-color: var(--color-border-strong);
+}
+
+.calculator-button-action:active {
+  background: var(--color-key-action-pressed);
 }
 
 .calculator-button-operator,
@@ -148,6 +168,12 @@ select {
   border-color: var(--color-accent-border);
   color: var(--color-accent);
   font-weight: 650;
+}
+
+.calculator-button-operator:active,
+.calculator-button-equals:active {
+  background: var(--color-accent-pressed);
+  border-color: var(--color-accent-border-pressed);
 }
 
 .calculator-button:focus-visible {
@@ -183,5 +209,11 @@ select {
   .calculator-button {
     min-height: 52px;
     font-size: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calculator-button {
+    transition: none;
   }
 }
