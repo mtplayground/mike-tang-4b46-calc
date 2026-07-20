@@ -104,7 +104,7 @@ select {
 
 .calculator-keypad {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(8px, 2.6vw, 12px);
 }
 
@@ -123,6 +123,25 @@ select {
   font-variant-numeric: tabular-nums;
   line-height: 1;
   padding: 0;
+}
+
+.calculator-button-action {
+  background: #e8edf2;
+}
+
+.calculator-button-operator,
+.calculator-button-equals {
+  background: #eef4fb;
+  border-color: #c8d7e8;
+}
+
+.calculator-button.is-wide {
+  grid-column: span 2;
+}
+
+.calculator-button.is-tall {
+  grid-row: span 2;
+  aspect-ratio: auto;
 }
 
 @media (max-width: 380px) {
