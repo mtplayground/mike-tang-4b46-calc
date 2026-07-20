@@ -1,0 +1,42 @@
+Architecture plan for the calculator web app
+
+Project shape
+- Build a static single-page web app so it can be self-hosted without server runtime concerns.
+- Prefer a small Vite + TypeScript app unless Issue #1 specifies a different stack during implementation.
+- Keep UI and calculator behavior separated so Issue #12 can test calculation rules without browser rendering.
+
+Proposed file organization
+- package.json, vite.config.ts, tsconfig.json: dev, build, lint, and test setup.
+- src/main.tsx: app bootstrap.
+- src/App.tsx: page shell and calculator mount point.
+- src/components/Calculator.tsx: state wiring between display, keypad, and calculator logic.
+- src/components/Display.tsx: current entry/result rendering with long-number handling.
+- src/components/Button.tsx: reusable calculator key button with variants for digits, operators, equals, and clear.
+- src/components/Keypad.tsx: classic calculator grid layout and button definitions.
+- src/lib/calculator.ts: pure reducer/state machine for digits, decimal point, operators, equals, clear, chaining, and divide-by-zero behavior.
+- src/lib/calculator.test.ts: focused tests for operations, chaining, decimals, reset, and divide-by-zero.
+- src/styles.css: responsive classic-minimal styling and subtle press feedback.
+
+Shared types
+- CalculatorState: displayValue, storedValue, pendingOperator, waitingForNextValue, error.
+- CalculatorAction: digit, decimal, operator, equals, clear.
+- Operator: add, subtract, multiply, divide.
+- ButtonKind: digit, operator, action, equals.
+
+Issue dependency plan
+- Issue #1 creates the static web app scaffold, scripts, entry point, and baseline quality tooling.
+- Issue #2 adds the centered responsive calculator container with display and keypad regions.
+- Issue #3 builds Display and the default 0/long-number presentation.
+- Issues #4 and #5 complete the reusable Button and Keypad components.
+- Issues #6, #7, and #8 implement the pure calculator reducer in sequence: entry, calculation/chaining, then reset.
+- Issue #9 adds keyboard listeners that dispatch the same actions as on-screen buttons.
+- Issues #10 and #11 refine visual styling and press feedback without changing behavior.
+- Issue #12 adds test coverage for the pure calculator logic.
+- Issue #13 performs browser checks, small/large viewport polish, static build verification, and deployment readiness.
+
+Key decisions
+- Keep arithmetic and formatting in pure functions to make behavior predictable and easy to test.
+- Dispatch all button and keyboard input through one action path so click and keyboard behavior cannot drift.
+- Use semantic button elements for accessibility and reliable keyboard/touch behavior.
+- Use CSS grid with stable button dimensions and responsive constraints so the calculator remains tappable on phones and compact on desktop.
+- Treat divide-by-zero as a displayable error state that clear/reset can recover from without throwing.
