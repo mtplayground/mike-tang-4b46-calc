@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Display } from "./Display";
-import { NumberKeypad, type NumberKey } from "./NumberKeypad";
+import { Keypad, type NumberKey } from "./Keypad";
 
 function appendNumberKey(entry: string, key: NumberKey) {
   if (key === ".") {
@@ -24,7 +24,11 @@ export function CalculatorFrame() {
   return (
     <section className="calculator-frame" aria-label="Calculator">
       <Display currentEntry={currentEntry} />
-      <NumberKeypad onNumberPress={handleNumberPress} />
+      <Keypad
+        onActionPress={() => undefined}
+        onNumberPress={handleNumberPress}
+        onOperatorPress={() => undefined}
+      />
     </section>
   );
 }
