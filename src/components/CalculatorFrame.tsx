@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Display } from "./Display";
-import { Keypad } from "./Keypad";
+import { Keypad, type ActionKey } from "./Keypad";
 import {
   appendNumberKey,
   chooseOperator,
   getDisplayValues,
   initialCalculatorState,
+  pressEquals,
   type NumberKey,
   type OperatorKey,
 } from "../lib/calculator";
@@ -22,6 +23,12 @@ export function CalculatorFrame() {
     setCalculatorState((state) => chooseOperator(state, key));
   }
 
+  function handleActionPress(key: ActionKey) {
+    if (key === "equals") {
+      setCalculatorState((state) => pressEquals(state));
+    }
+  }
+
   return (
     <section className="calculator-frame" aria-label="Calculator">
       <Display
@@ -29,7 +36,7 @@ export function CalculatorFrame() {
         runningResult={displayValues.runningResult}
       />
       <Keypad
-        onActionPress={() => undefined}
+        onActionPress={handleActionPress}
         onNumberPress={handleNumberPress}
         onOperatorPress={handleOperatorPress}
       />
